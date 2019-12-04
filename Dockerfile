@@ -28,7 +28,6 @@ RUN cd /var/www/tracks && bundle install --jobs 4
 
 # Initialize database
 #=================================================
-COPY Rakefile /var/www/tracks/
 RUN cd /var/www/tracks && export RAILS_ENV=production && bundle exec rake db:migrate RAILS_ENV=production && bundle exec rake assets:precompile
 
 
