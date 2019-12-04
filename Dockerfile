@@ -41,6 +41,8 @@ RUN service apache2 restart
 #=================================================
 RUN chown -R www-data:www-data /var/www/tracks
 
+VOLUME ["/var/www"]
+
 EXPOSE 80
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
