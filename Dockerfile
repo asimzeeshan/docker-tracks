@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ruby:stretch
 
 LABEL maintainer="Asim Zeeshan asim@techbytes.pk"
 
