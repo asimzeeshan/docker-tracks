@@ -20,7 +20,9 @@ ADD ./database.yml /var/www/tracks/config/
 
 # Setup Tracks
 #=================================================
-RUN cd /var/www/tracks && bundle install
+COPY Gemfile* /var/www/tracks/
+RUN gem install bundler
+RUN cd /var/www/tracks && bundle install --jobs 4
 
 # Initialize database
 #=================================================
