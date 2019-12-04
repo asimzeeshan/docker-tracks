@@ -13,7 +13,7 @@ RUN apt install -y apache2 libapache2-mod-passenger
 #=================================================
 RUN wget https://github.com/TracksApp/tracks/archive/v2.4.1.zip -O /var/www/latest.zip
 
-RUN cd /var/www && unzip latest.zip && mv tracks-* tracks && chown -R www-data:www-data tracks
+RUN unzip /var/www/latest.zip -d /var/www/tracks && chown -R www-data:www-data /var/www/tracks
 
 ADD ./database.yml /var/www/tracks/config/
 ADD ./site.yml /var/www/tracks/config/
@@ -41,8 +41,6 @@ RUN service apache2 restart
 # Add dockerize startup script
 #=================================================
 RUN chown -R www-data:www-data /var/www/tracks
-
-VOLUME ["/var/www"]
 
 EXPOSE 80
 
