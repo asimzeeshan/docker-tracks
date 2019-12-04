@@ -1,0 +1,12 @@
+version: '3'
+services:
+  tracks:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tracks
+    restart: always
+    volumes:
+      - ./app:/app
+    ports:
+      - 3000:80
