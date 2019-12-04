@@ -16,6 +16,7 @@ RUN wget https://github.com/TracksApp/tracks/archive/v2.4.1.zip -O /var/www/late
 RUN cd /var/www && unzip latest.zip && mv tracks-* tracks && chown -R www-data:www-data tracks
 
 ADD ./database.yml /var/www/tracks/config/
+ADD ./site.yml /var/www/tracks/config/
 
 
 # Setup Tracks
