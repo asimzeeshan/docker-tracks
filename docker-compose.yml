@@ -7,7 +7,7 @@ services:
     container_name: tracks
     restart: always
     volumes:
-      - ./data/app:/var/www/tracks
+      - ./data/app:/var/www
       - ./data/backups:/backups
       - "/etc/localtime:/etc/localtime:ro"
     ports:

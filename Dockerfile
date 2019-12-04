@@ -13,7 +13,7 @@ RUN apt install -y apache2 libapache2-mod-passenger
 #=================================================
 RUN wget https://github.com/TracksApp/tracks/archive/v2.4.1.zip -O /var/www/latest.zip
 
-RUN unzip /var/www/latest.zip -d /var/www/tracks && chown -R www-data:www-data /var/www/tracks
+RUN cd /var/www/ && unzip latest.zip && mv tracks-2.4.1 tracks && chown -R www-data:www-data /var/www/tracks
 
 ADD ./database.yml /var/www/tracks/config/
 ADD ./site.yml /var/www/tracks/config/
