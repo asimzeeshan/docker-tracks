@@ -4,9 +4,13 @@ LABEL maintainer="Asim Zeeshan asim@techbytes.pk"
 
 # Install pre-requisites
 #=================================================
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
 RUN apt update
 RUN apt install -y htop nano wget
-RUN apt install -y ruby rubygems-integration bundler sqlite3 libsqlite3-dev build-essential curl unzip zlib1g-dev
+RUN apt install -y ruby rubygems-integration bundler sqlite3 libsqlite3-dev build-essential curl unzip zlib1g-dev apt-transport-https
+RUN apt install -y --no-install-recommends yarn
 RUN apt install -y apache2 libapache2-mod-passenger
 
 # Add tracksapp
@@ -15,14 +19,15 @@ RUN wget https://github.com/TracksApp/tracks/archive/v2.4.1.zip -O /var/www/late
 
 RUN cd /var/www/ && unzip latest.zip && mv tracks-2.4.1 tracks && chown -R www-data:www-data /var/www/tracks
 
-ADD ./database.yml /var/www/tracks/config/
-ADD ./site.yml /var/www/tracks/config/
+COPY ./database.yml /var/www/tracks/config/
+COPY ./site.yml /var/www/tracks/config/
 
 
 # Setup Tracks
 #=================================================
 COPY Gemfile* /var/www/tracks/
 RUN gem install bundler
+RUN gem install RedCloth
 RUN bundle config git.allow_insecure true
 RUN cd /var/www/tracks && bundle install --jobs 4
 
