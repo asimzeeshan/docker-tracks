@@ -4,7 +4,7 @@ LABEL maintainer="Asim Zeeshan asim@techbytes.pk"
 
 # Install pre-requisites
 #=================================================
-RUN apt-get update && apt-get install -y apt-transport-https apt-utils
+RUN apt update && apt install -y apt-transport-https apt-utils curl gnupg2 git
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
@@ -31,7 +31,7 @@ COPY Gemfile* /var/www/tracks/
 RUN gem install bundler
 RUN gem install RedCloth
 RUN bundle config git.allow_insecure true
-RUN cd /var/www/tracks && bundle install --jobs 4
+RUN cd /var/www/tracks && bundle install --jobs 4 --without development test mysql
 
 # Initialize database
 #=================================================
