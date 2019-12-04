@@ -35,8 +35,8 @@ COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
 # Add dockerize startup script
 #=================================================
 RUN apt install -y wget
-RUN wget https://github.com/jwilder/dockerize/releases/download/v0.0.4/dockerize-linux-amd64-v0.0.4.tar.gz
-RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.0.4.tar.gz
+RUN wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
+RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
 RUN chmod +x /usr/local/bin/dockerize
 RUN cd /var/www/ && chown -R www-data:www-data tracks
 
