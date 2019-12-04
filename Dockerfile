@@ -4,12 +4,14 @@ LABEL maintainer="Asim Zeeshan asim@techbytes.pk"
 
 # Install pre-requisites
 #=================================================
+RUN apt update && apt install -y apt-transport-https
+
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 RUN apt update
 RUN apt install -y htop nano wget
-RUN apt install -y ruby rubygems-integration bundler sqlite3 libsqlite3-dev build-essential curl unzip zlib1g-dev apt-transport-https
+RUN apt install -y ruby rubygems-integration bundler sqlite3 libsqlite3-dev build-essential curl unzip zlib1g-dev 
 RUN apt install -y --no-install-recommends yarn
 RUN apt install -y apache2 libapache2-mod-passenger
 
