@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4'
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 5.0.0'
 
@@ -26,7 +26,7 @@ gem "sqlite3", group: :sqlite
 gem "mysql2", "~> 0.5.3", group: :mysql
 
 gem "RedCloth"
-gem "sanitize", "~> 5.0"
+gem "sanitize", "~> 5.1"
 gem "will_paginate"
 gem "acts_as_list"
 gem "aasm", '~> 3.4.0'
@@ -62,7 +62,7 @@ end
 group :development, :test do
   gem 'byebug'
   gem 'listen'
-  gem "rubocop", "~> 0.74", require: false
+  gem "rubocop", "~> 0.77", require: false
 end
 
 group :test do
