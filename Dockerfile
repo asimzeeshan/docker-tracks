@@ -6,7 +6,7 @@ LABEL maintainer="Asim Zeeshan asim@techbytes.pk"
 #=================================================
 RUN apt update
 RUN apt install -y htop nano wget
-RUN apt install -y ruby rubygems-integration bundler sqlite3 libsqlite3-dev build-essential curl unzip 
+RUN apt install -y ruby rubygems-integration bundler sqlite3 libsqlite3-dev build-essential curl unzip zlib1g-dev
 RUN apt install -y apache2 libapache2-mod-passenger
 
 # Add tracksapp
@@ -23,27 +23,27 @@ ADD ./site.yml /var/www/tracks/config/
 #=================================================
 COPY Gemfile* /var/www/tracks/
 RUN gem install bundler
+RUN bundle config git.allow_insecure true
 RUN cd /var/www/tracks && bundle install --jobs 4
 
 # Initialize database
 #=================================================
+COPY Rakefile /var/www/tracks/
 RUN cd /var/www/tracks && export RAILS_ENV=production && bundle exec rake db:migrate RAILS_ENV=production && bundle exec rake assets:precompile
 
 
 # Replace the default sites-available
 #=================================================
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN service apache2 restart
 
 
 # Add dockerize startup script
 #=================================================
-RUN wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz
-RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz
-RUN chmod +x /usr/local/bin/dockerize
-RUN cd /var/www/ && chown -R www-data:www-data tracks
+RUN chown -R www-data:www-data /var/www/tracks
 
 VOLUME ["/var/www"]
 
 EXPOSE 80
 
-CMD "dockerize" "-stdout=/var/log/apache2/access.log", "-stdout=/var/www/tracks/log/production.log", "-stderr=/var/log/apache2/error.log" "/apache2-foreground"
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
