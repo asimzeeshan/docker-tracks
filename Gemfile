@@ -29,7 +29,7 @@ gem "RedCloth"
 gem "sanitize", "~> 5.1"
 gem "will_paginate"
 gem "acts_as_list"
-gem "aasm", '~> 3.4.0'
+gem "aasm", '~> 5.2.0'
 gem "htmlentities"
 gem "rails_autolink"
 gem 'puma', '~> 4.1'
